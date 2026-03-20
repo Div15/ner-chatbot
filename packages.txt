@@ -1,0 +1,1 @@
+en-core-web-sm
