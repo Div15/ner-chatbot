@@ -2,13 +2,22 @@ import streamlit as st
 import spacy
 import pdfplumber
 from docx import Document
+from spacy import displacy
+import streamlit.components.v1 as components
 
+# Load NLP model
 nlp = spacy.load("en_core_web_sm")
 
-st.title("?? Smart Study Assistant (NER Chatbot)")
+# App title
+st.title("📚 Smart Study Assistant (NER Chatbot)")
 
-uploaded_file = st.file_uploader("Upload PDF or Word file", type=["pdf", "docx"])
+# File uploader
+uploaded_file = st.file_uploader(
+    "Upload PDF or Word file",
+    type=["pdf", "docx"]
+)
 
+# Function to extract text
 def extract_text(file):
     if file.type == "application/pdf":
         text = ""
@@ -21,16 +30,37 @@ def extract_text(file):
         doc = Document(file)
         return "\n".join([para.text for para in doc.paragraphs])
 
-if uploaded_file:
+    else:
+        return None
+
+
+# Main logic
+if uploaded_file is None:
+    st.info("Please upload a PDF or Word file to begin.")
+
+else:
     text = extract_text(uploaded_file)
 
-    st.subheader("?? Extracted Text")
-    st.write(text[:1000])  # preview
+    # Handle unsupported or empty text
+    if text is None or text.strip() == "":
+        st.error("Unable to extract text from this file ❌")
 
-    doc = nlp(text)
+    else:
+        # Show extracted text preview
+        st.subheader("📄 Extracted Text (Preview)")
+        st.write(text[:1000])
 
-    st.subheader("?? Named Entities")
-    entities = [(ent.text, ent.label_) for ent in doc.ents]
+        # Limit text for performance (optional but recommended)
+        processed_text = text[:2000]
 
-    for ent in entities:
-        st.write(f"{ent[0]} ? {ent[1]}")
+        # Process NLP
+        doc = nlp(processed_text)
+
+        # Highlighted NER output
+        st.subheader("🔍 Named Entities")
+
+        if not doc.ents:
+            st.warning("No entities found.")
+        else:
+            html = displacy.render(doc, style="ent", jupyter=False)
+            components.html(html, height=500, scrolling=True)
