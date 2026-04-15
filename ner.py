@@ -108,6 +108,4 @@ else:
 
         else:
             html = displacy.render(doc, style="ent", jupyter=False)
-            components.html(html, height=500, scrolling=True)        else:
-            html = displacy.render(doc, style="ent", jupyter=False)
             components.html(html, height=500, scrolling=True)
