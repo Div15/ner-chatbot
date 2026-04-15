@@ -101,7 +101,7 @@ else:
         doc = nlp(processed_text)
 
         # Named entities
-        st.subheader("🔍 Named Entities Recognition")
+        st.subheader("🔍 Named Entity Recognition Results")
 
         if not doc.ents:
             st.warning("No entities found.")
