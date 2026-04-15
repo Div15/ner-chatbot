@@ -52,7 +52,7 @@ nlp = spacy.load("en_core_web_sm")
 
 # Title
 st.markdown("<h1>🎓 Smart Study Assistant</h1>", unsafe_allow_html=True)
-st.caption("AI Powered PDF & Word Document Analyzer")
+st.caption("Document Analysis using Named Entity Recognition")
 
 # File uploader
 uploaded_file = st.file_uploader(
