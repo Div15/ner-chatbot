@@ -1,4 +1,4 @@
-## 📚 Smart Study Assistant (NER Chatbot)
+## 📚 Smart Study Assistant
 
 This project is a simple NLP-based application that extracts named entities from unstructured documents like PDF and Word files.
 
