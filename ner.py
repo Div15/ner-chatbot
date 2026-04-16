@@ -90,7 +90,7 @@ else:
     else:
         # Preview section
         st.subheader("📄 Extracted Text Preview")
-        st.text_area("Document Content", text[:1000], height=250)
+        st.text_area("Document Content", text[:2000], height=250)
 
         st.markdown("---")
 
